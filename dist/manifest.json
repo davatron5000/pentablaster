@@ -1,0 +1,18 @@
+
+{
+  "manifest_version": 1,
+  "name": "Pentablaster",
+  "version": "1.0.0",
+  "description": "A .",
+  "start_url": "/",
+  "background_color": "#d0ebff",
+  "theme_color": "#d0ebff",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "apple-touch-icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
