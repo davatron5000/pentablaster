@@ -33,9 +33,9 @@ const scales = {
 const keys = 'yuiophjkl;qwertasdfgzxcvb'.split('');
 
 function getNote(note) {
-  
+
     const shift = parseFloat(transpose.value)
-    const newNote = Tone.Frequency(note).transpose(shift).toNote()  
+    const newNote = Tone.Frequency(note).transpose(shift).toNote()
     return newNote
 }
 
@@ -50,7 +50,7 @@ function setupScale(scaleKey) {
   pads.forEach((pad, index) => {
     const row = 6 - (Math.floor(index / 5) + 1)
     const newNote =  scales[scaleKey][index % 5] + row;
-    
+
     pad.id = newNote
     pad.textContent = noteText[index % 5] + row;
   })
@@ -68,20 +68,20 @@ scale.addEventListener('change', (e) => {
 pads.forEach(pad => {
   pad.addEventListener('pointerdown', async (event) => {
     event.preventDefault();
-    
+
     if(!toneStarted) {
       await Tone.start()
       toneStarted = true;
     }
-        
+
     if(!pad.classList.contains('pressed')) {
       const note = getNote(pad.id)
       synth.triggerAttack(note);
       pad?.classList.add('pressed');
     }
   })
-  
-  pad.addEventListener('pointerup', (event) => {    
+
+  pad.addEventListener('pointerup', (event) => {
       const note = getNote(pad.id)
       synth.triggerRelease(note);
       pad?.classList.remove('pressed');
@@ -89,31 +89,33 @@ pads.forEach(pad => {
 })
 
 document.addEventListener('keydown', async (event) => {
-    event.preventDefault();
-  
-    if(!toneStarted) {
-      await Tone.start()
-      toneStarted = true;
-    }
-  
-    const num = keys.indexOf(event.key)
-    const pad = pads[num]
-    
-    if(pad && !pad.classList.contains('pressed')) {
-      const note = getNote(pad.id)
+    if(!(event.metaKey || event.ctrlKey)) {
+      event.preventDefault();
+      if(!toneStarted) {
+        await Tone.start()
+        toneStarted = true;
+      }
 
-      // play note
-      synth.triggerAttack(note);
-      pad.classList.add('pressed')
+      const num = keys.indexOf(event.key)
+
+      const pad = pads[num]
+
+      if(pad && !pad.classList.contains('pressed')) {
+        const note = getNote(pad.id)
+
+        // play note
+        synth.triggerAttack(note);
+        pad.classList.add('pressed')
+      }
     }
-} )
+})
 
 document.addEventListener('keyup', (event) => {
   event.preventDefault();
-  
+
     const num = keys.indexOf(event.key)
     const pad = pads[num];
-    
+
     if(pad) {
       const note = getNote(pad.id)
       synth.triggerRelease(note);
@@ -126,7 +128,7 @@ if(!('commandfor' in HTMLElement.prototype)) {
     cmd.addEventListener('click', (event) => {
       event.preventDefault();
       const target = document.getElementById(cmd.getAttribute('commandfor'))
-      
+
       target[cmd.getAttribute('command')]()
     })
   })

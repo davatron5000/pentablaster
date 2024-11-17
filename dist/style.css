@@ -11,7 +11,7 @@ body {
 }
 
 body {
-  padding:1rem;
+  padding:1.5rem;
   display: grid;
   gap: 1rem;
   grid-template-rows: min-content 1fr;
@@ -20,6 +20,8 @@ body {
 
 h1,h2,h3 {
   margin: 0;
+  -webkit-user-select: none; /* Safari */
+  user-select: none;
 }
 
 header {
@@ -126,6 +128,7 @@ main {
   border: 1px solid transparent;
   border-radius: 5px;
   box-shadow: 0 3px 1px 0 #b1b6b9; /* --stone-5 */
+  color: #b1b6b9; /* --stone-5 */
   -webkit-tap-highlight-color: transparent; /* for removing the highlight */
 }
 
